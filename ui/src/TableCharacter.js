@@ -118,19 +118,23 @@ export default class TableCharacter extends Component {
                       type="button"
                       value="Edit"
                       className="btn btn-edit"
-                      onClick={() => this.getModal(item.id)}
-                    ></input>
+                      onClick={()=>this.getModal(item.id)}/>
+
                     <EditCharacter
+                    characters ={this.state.items}
                       show={this.state.showModal === item.id}
                       onHide={() => this.hideModal(item.id)}
+                      id={item.id}
                       name={item.name}
                       status={item.status}
                       species={item.species}
                       type={item.type}
-                      gender={item.gender}
-                    />
+                      gender={item.gender}/>
+                  
                   </td>
+         
                 </tr>
+                
               ))}
             </tbody>
           </table>
