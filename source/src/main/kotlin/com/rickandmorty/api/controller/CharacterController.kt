@@ -2,13 +2,10 @@ package com.rickandmorty.api.controller
 
 import com.rickandmorty.api.entity.Character
 import com.rickandmorty.api.service.CharacterServiceImpl
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
-import java.net.URL
 import kotlinx.serialization.json.*
-import org.springframework.web.bind.annotation.CrossOrigin
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.*
+import java.net.URL
 
 @RestController
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
@@ -30,6 +27,21 @@ class CharacterController {
 
         val characterList = parseJsonToObject(resultsArray)
         repositoryService.saveCharacters(characterList)
+    }
+
+    @RequestMapping(method = [RequestMethod.PUT], value = ["/"])
+    fun updateCharacter(@RequestBody character : Character): Int {
+
+        var originalCharater: Character = repositoryService.getCharacterById(character.id!!)
+        originalCharater.id = character.id
+        originalCharater.name = character.name
+        originalCharater.status = character.status
+        originalCharater.species = character.species
+        originalCharater.type = character.type
+        originalCharater.gender = character.gender
+        println(originalCharater.name)
+        repositoryService.updateCharacter( originalCharater)
+        return 200
     }
 
     private fun parseJsonToObject(resultsArray: JsonElement?): MutableList<Character> {

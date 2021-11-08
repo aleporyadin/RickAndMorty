@@ -38,8 +38,8 @@ class CharacterServiceImpl: CharacterService {
     override fun getCharacterByFirstName(name: String) = repository.findByName(name)
 
 
-    override fun updateCharacter(id: Int, character: Character): Character {
-        TODO("Not yet implemented")
+    override fun updateCharacter( character: Character) {
+        repository.save(character)
     }
 
 }

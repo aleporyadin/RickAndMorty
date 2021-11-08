@@ -12,5 +12,5 @@ interface CharacterService {
     fun getCharacterById(id: Int): Character?
     fun getCharacters(): MutableIterable<Character>?
     fun getCharacterByFirstName(name: String): List<Character>
-    fun updateCharacter(id: Int, character: Character): Character
+    fun updateCharacter(character: Character)
 }

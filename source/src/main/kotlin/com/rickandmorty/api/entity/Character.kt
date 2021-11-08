@@ -12,16 +12,16 @@ class Character(id: Int?,  name: String?,  status: String?,  species: String?, t
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id : Int?=id
+    var id : Int?=id
     @Column(name = "`name`")
-    val name: String?=name
+    var name: String?=name
     @Column(name="`status`")
-    val status: String?=status
+    var status: String?=status
     @Column(name="`species`")
-    val species: String?=species
+    var species: String?=species
     @Column(name="`type`")
-    val type: String?=type
+    var type: String?=type
     @Column(name="`gender`")
-    val gender: String?=gender
+    var gender: String?=gender
 
 }
