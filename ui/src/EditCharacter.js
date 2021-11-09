@@ -18,7 +18,7 @@ class EditCharacter extends Component {
       gender: event.target.elements.herogender.value,
     };
     axios
-      .put("http://localhost:9901/", this.update)
+      .put("http://localhost:8080/", this.update)
       .then((response) => {
         if (response.status === 200) {
           window.location.reload();

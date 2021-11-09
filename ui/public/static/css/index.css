@@ -4,6 +4,8 @@
   --color-background-btn-focus: #55a7ff;
   --color-background: #3a4147;
   --color-text: #e5e5e5;
+  --color-text-hover-to-white: #fff;
+  --color-text-black: hsl(0, 0%, 5%);
 }
 * {
   font-family: "Roboto", sans-serif;
@@ -53,15 +55,18 @@ table {
 .btn {
   background-color: var(--color-background-btn);
   transition: 0.5s;
-  border: 0px;
-  color: white;
+  border: 0px var(--color-text) solid;
+  color: var(--color-text);
   border-radius: 8px;
   width: 65px;
   height: 30px;
+  transition: 1s;
+
 }
 .btn:hover {
-  transition: 0.5s;
   background-color: var(--color-background-btn-focus);
+  border-color: 1px var(--color-text) ;
+  color: var(--color-text-hover-to-grey)
 }
 .modal {
   position: fixed;
@@ -69,7 +74,7 @@ table {
   right: 30%;
   min-height: 200px;
   left: 30%;
-  padding: 50px;
+  padding: 20px;
   border: 1px rgba(0, 0, 0, 0.2) solid;
   border-radius: 8px;
   box-shadow: 0 10px 30px 0 rgba(127, 127, 127, 0.3);
@@ -101,18 +106,18 @@ table {
     ". ."
     ". ."
     ". .";
-    height: 100%;
-    margin: 0;
+  /* height: 100%; */
+  margin: 0;
 }
 
 /* For presentation only, no need to copy the code below */
 
-.container-modal-form  * {
+.container-modal-form * {
   position: relative;
   color: var(--color-text);
 }
 
-.container-modal-form  *:after {
+.container-modal-form *:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -123,12 +128,38 @@ table {
   justify-content: center;
 }
 
-.container-btn-actions-form{
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.container-btn-actions-form {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.btn-action-form{
-    margin: 10px; 
+.btn-action-form {
+  margin: 10px;
+}
+.container-modal-form > input[type="text"] {
+  color: var(--color-text-black);
+  outline: none;
+  border-radius: 8px;
+  height: 2em;
+  margin: 5px;
+  border: 1px solid;
+  transition: 0.5s;
+}
+.container-modal-form > input[type="text"]:focus {
+  border-color: var(--color-text) ;
+  
+}
+.container-modal-form > input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.container-modal-form > label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
 }

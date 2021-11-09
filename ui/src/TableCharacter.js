@@ -27,9 +27,8 @@ export default class TableCharacter extends Component {
       });
     }
   }
-
   getjson() {
-    fetch("http://localhost:9901/characters")
+    fetch("http://localhost:8080/characters")
       .then((res) => res.json())
       .then(
         (data) => {
@@ -44,7 +43,7 @@ export default class TableCharacter extends Component {
   }
 
   setjson() {
-    fetch("http://localhost:9901/characters")
+    fetch("http://localhost:8080/characters")
       .then((res) => res.json())
       .then(
         (data) => {
