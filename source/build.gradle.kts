@@ -9,6 +9,7 @@ plugins {
 	kotlin("plugin.spring") version "1.5.31"
 	id("org.flywaydb.flyway") version "6.5.0"
 	kotlin("plugin.serialization") version "1.5.31"
+	kotlin("kapt") version "1.4.32"
 
 }
 
@@ -54,16 +55,25 @@ dependencies {
 
 	runtimeOnly("mysql:mysql-connector-java:8.0.25")
 	runtimeOnly("org.springframework.boot:spring-boot-devtools:2.5.6")
+	runtimeOnly("com.h2database:h2")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
-	testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+	testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+	testImplementation("io.mockk:mockk:1.9.3")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
 	testImplementation("org.junit.vintage:junit-vintage-engine:5.8.1")
+	testImplementation("com.ninja-squad:springmockk:3.0.1")
 
 	annotationProcessor("org.projectlombok:lombok:1.18.22")
 
 
-
+	kapt("org.springframework.boot:spring-boot-configuration-processor")
+	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+		exclude(module = "mockito-core")
+	}
 
 
 

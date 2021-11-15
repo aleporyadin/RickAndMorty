@@ -8,7 +8,7 @@ import javax.persistence.*
 @Table(name="`character`")
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Character(id: Int?,  name: String?,  status: String?,  species: String?, type: String?, gender: String?){
+class Character(id: Int?,  name: String?="",  status: String?="",  species: String?="", type: String?="", gender: String?=""){
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

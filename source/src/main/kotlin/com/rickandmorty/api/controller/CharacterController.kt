@@ -23,18 +23,17 @@ class CharacterController {
 
     @PostMapping
     fun saveCharacters() {
-        val CHARACTERAPI_URL="https://rickandmortyapi.com/api/character"
+        val CHARACTER_URL="https://rickandmortyapi.com/api/character"
         val resultsArray=
-            Json.parseToJsonElement(URL(CHARACTERAPI_URL).readText().replace("\\","").trimIndent()).jsonObject["results"]
+            Json.parseToJsonElement(URL(CHARACTER_URL).readText().replace("\\","").trimIndent()).jsonObject["results"]
         val characterList = parseJsonToObject(resultsArray)
         repositoryService.saveCharacters(characterList)
     }
 
     @PutMapping
     fun updateCharacter(@RequestBody character : Character): ResponseEntity<String> {
-        repositoryService.updateCharacter( character)
+        repositoryService.updateCharacter(character)
         return ResponseEntity.ok("Updated entity")
-
     }
 
     private fun parseJsonToObject(resultsArray: JsonElement?): MutableList<Character> {
