@@ -10,22 +10,25 @@ export default class TableCharacter extends Component {
 
   filterSearchForName(e) {
     if (e.key === "Enter") {
-      this.setState({
-        items: this.state.items.filter((item) => {
-          if (!e.target.value.length) this.setjson();
-          if (
-            item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1
-          ) {
-            return item;
-          } else {
-            return null;
+      if (!e.target.value.length) this.setjson();
+        
+      this.setState(()=>({
+            items: this.state.items.filter(
+                (item) => {
+                if (item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1) return item;
+                else return null;
+              }
+            ),
+            isLoaded: true,
+            error: false,
+            showModal: 0,
           }
-        }),
-        isLoaded: true,
-        error: false,
-        showModal: 0,
-      });
+        )
+      );
+
     }
+
+    
   }
   getjson() {
     fetch("http://localhost:8080/characters")
