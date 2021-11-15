@@ -4,44 +4,37 @@ import com.rickandmorty.api.entity.Character
 import com.rickandmorty.api.service.CharacterServiceImpl
 import kotlinx.serialization.json.*
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URL
 
 @RestController
+@RequestMapping("characters")
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
 class CharacterController {
 
     @Autowired
     lateinit var repositoryService: CharacterServiceImpl
 
-    @RequestMapping(method = [RequestMethod.GET], value = ["/characters"])
+    @GetMapping
     fun characterJson(): MutableIterable<Character> {
         return repositoryService.getCharacters()
     }
 
-    @RequestMapping(method = [RequestMethod.POST], value = ["/characters"])
+    @PostMapping
     fun saveCharacters() {
         val CHARACTERAPI_URL="https://rickandmortyapi.com/api/character"
         val resultsArray=
             Json.parseToJsonElement(URL(CHARACTERAPI_URL).readText().replace("\\","").trimIndent()).jsonObject["results"]
-
         val characterList = parseJsonToObject(resultsArray)
         repositoryService.saveCharacters(characterList)
     }
 
-    @RequestMapping(method = [RequestMethod.PUT], value = ["/"])
-    fun updateCharacter(@RequestBody character : Character): Int {
+    @PutMapping
+    fun updateCharacter(@RequestBody character : Character): ResponseEntity<String> {
+        repositoryService.updateCharacter( character)
+        return ResponseEntity.ok("Updated entity")
 
-        var originalCharater: Character = repositoryService.getCharacterById(character.id!!)
-        originalCharater.id = character.id
-        originalCharater.name = character.name
-        originalCharater.status = character.status
-        originalCharater.species = character.species
-        originalCharater.type = character.type
-        originalCharater.gender = character.gender
-        println(originalCharater.name)
-        repositoryService.updateCharacter( originalCharater)
-        return 200
     }
 
     private fun parseJsonToObject(resultsArray: JsonElement?): MutableList<Character> {
