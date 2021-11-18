@@ -50,18 +50,18 @@ dependencies {
 	implementation("com.jayway.jsonpath:json-path:2.6.0")
 	implementation("com.progsbase.libraries:JSON:0.4.0")
 	implementation("com.google.code.gson:gson:2.8.9")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
 	compileOnly("org.projectlombok:lombok:1.18.22")
 
 	runtimeOnly("mysql:mysql-connector-java:8.0.25")
 	runtimeOnly("org.springframework.boot:spring-boot-devtools:2.5.6")
-	runtimeOnly("com.h2database:h2")
 
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 
-	testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
-	testImplementation("org.junit.jupiter:junit-jupiter-api")
-	testImplementation("io.mockk:mockk:1.9.3")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+	testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+	testImplementation("io.mockk:mockk:1.12.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
 	testImplementation("org.junit.vintage:junit-vintage-engine:5.8.1")
 	testImplementation("com.ninja-squad:springmockk:3.0.1")
@@ -70,7 +70,7 @@ dependencies {
 
 
 	kapt("org.springframework.boot:spring-boot-configuration-processor")
-	testImplementation("org.springframework.boot:spring-boot-starter-test") {
+	testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 		exclude(module = "mockito-core")
 	}

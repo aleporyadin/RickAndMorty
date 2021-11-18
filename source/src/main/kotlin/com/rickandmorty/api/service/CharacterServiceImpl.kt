@@ -31,7 +31,9 @@ class CharacterServiceImpl: CharacterService {
 
     override fun getCharacterById(id: Int): Character{return repository.findById(id).orElse(null)}
 
-    override fun getCharacters()=  repository.findAll()
+    override fun getCharacters(): MutableList<Character> {
+        return repository.findAll() as MutableList<Character>
+    }
 
     override fun getCharacterByFirstName(name: String) = repository.findByName(name)
 

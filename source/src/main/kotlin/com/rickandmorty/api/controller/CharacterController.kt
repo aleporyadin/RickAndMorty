@@ -4,6 +4,7 @@ import com.rickandmorty.api.entity.Character
 import com.rickandmorty.api.service.CharacterServiceImpl
 import kotlinx.serialization.json.*
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URL
@@ -22,21 +23,27 @@ class CharacterController {
     }
 
     @PostMapping
-    fun saveCharacters() {
+    fun saveCharacters(): ResponseEntity<String> {
         val CHARACTER_URL="https://rickandmortyapi.com/api/character"
         val resultsArray=
             Json.parseToJsonElement(URL(CHARACTER_URL).readText().replace("\\","").trimIndent()).jsonObject["results"]
         val characterList = parseJsonToObject(resultsArray)
         repositoryService.saveCharacters(characterList)
+        return ResponseEntity.ok("Characters saves")
     }
 
     @PutMapping
     fun updateCharacter(@RequestBody character : Character): ResponseEntity<String> {
-        repositoryService.updateCharacter(character)
-        return ResponseEntity.ok("Updated entity")
+        if (
+            character.id == (repositoryService.getCharacterById(character.id).id)
+        ) {
+            repositoryService.updateCharacter(character)
+            return ResponseEntity.ok("Updated character")
+        }
+        return ResponseEntity.badRequest().body("Character not found ")
     }
 
-    private fun parseJsonToObject(resultsArray: JsonElement?): MutableList<Character> {
+    fun parseJsonToObject(resultsArray: JsonElement?): MutableList<Character> {
         val heroList = mutableListOf<Character>()
 
         if (resultsArray != null) {
@@ -45,7 +52,7 @@ class CharacterController {
                 val obj = resultsArray.jsonArray[i]
                 heroList.add(
                     Character(
-                        obj.jsonObject["id"]?.jsonPrimitive?.int,
+                        obj.jsonObject["id"]!!.jsonPrimitive?.int,
                         obj.jsonObject["name"].toString().replace("\"", ""),
                         obj.jsonObject["status"].toString().replace("\"", ""),
                         obj.jsonObject["species"].toString().replace("\"", ""),
