@@ -5,45 +5,30 @@ export default class TableCharacter extends Component {
   constructor(props) {
     super(props);
     this.state = { showModal: 0 };
-    this.filterSearchForName = this.filterSearchForName.bind(this);
+    this.filterSearchByName = this.filterSearchByName.bind(this);
   }
 
-  filterSearchForName(e) {
+  filterSearchByName(e) {
     if (e.key === "Enter") {
       if (!e.target.value.length) this.setjson();
-        
-      this.setState(()=>({
-            items: this.state.items.filter(
-                (item) => {
-                if (item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1) return item;
+      this.setjson()
+      this.setState({
+        items: this.state.items.filter(
+            (item) => {
+              if (item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1) return item;
                 else return null;
               }
             ),
-            isLoaded: true,
-            error: false,
-            showModal: 0,
-          }
-        )
-      );
-
-    }
-
-    
-  }
-  getjson() {
-    fetch("http://localhost:8080/characters")
-      .then((res) => res.json())
-      .then(
-        (data) => {
-          var result = { isLoaded: true, items: data, showModal: 0 };
-          return result;
-        },
-        (error) => {
-          var result = { isLoaded: true, error, showModal: 0 };
-          return result;
+          isLoaded: true,
+          error: false,
+          showModal: 0,
         }
       );
+    } 
   }
+
+
+
 
   setjson() {
     fetch("http://localhost:8080/characters")
@@ -93,7 +78,7 @@ export default class TableCharacter extends Component {
             type="text"
             placeholder="Go search by name: "
             className="search-inp"
-            onKeyDown={this.filterSearchForName}
+            onKeyDown={this.filterSearchByName}
           />
           <table id="content-table">
             <thead>
