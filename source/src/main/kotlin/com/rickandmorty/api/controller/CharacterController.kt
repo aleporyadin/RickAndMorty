@@ -12,11 +12,14 @@ import java.net.URL
 @RestController
 @RequestMapping("characters")
 @CrossOrigin(origins = ["*"], allowedHeaders = ["*"])
-class CharacterController {
+class CharacterController(
+    val repositoryService: CharacterServiceImpl
+) {
 
-    @Autowired
-    lateinit var repositoryService: CharacterServiceImpl
-
+     // parse del -> resttempl
+    //null del
+    //autow
+    //
     @GetMapping
     fun characterJson(): MutableIterable<Character> {
         return repositoryService.getCharacters()
@@ -24,7 +27,6 @@ class CharacterController {
 
     @PostMapping
     fun saveCharacters(): ResponseEntity<String> {
-        val CHARACTER_URL="https://rickandmortyapi.com/api/character"
         val resultsArray=
             Json.parseToJsonElement(URL(CHARACTER_URL).readText().replace("\\","").trimIndent()).jsonObject["results"]
         val characterList = parseJsonToObject(resultsArray)
@@ -52,7 +54,7 @@ class CharacterController {
                 val obj = resultsArray.jsonArray[i]
                 heroList.add(
                     Character(
-                        obj.jsonObject["id"]!!.jsonPrimitive?.int,
+                        obj.jsonObject["id"]!!.jsonPrimitive.int,
                         obj.jsonObject["name"].toString().replace("\"", ""),
                         obj.jsonObject["status"].toString().replace("\"", ""),
                         obj.jsonObject["species"].toString().replace("\"", ""),
@@ -66,6 +68,9 @@ class CharacterController {
         return  heroList
     }
 
+    companion object {
+        const val CHARACTER_URL="https://rickandmortyapi.com/api/character"
+    }
 }
 
 

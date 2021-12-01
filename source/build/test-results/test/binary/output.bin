@@ -1,0 +1,6 @@
+ƒ13:26:38.380 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for CharacterServiceImpl name=#1
+w13:26:40.260 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating spyk for Character name=#2
+ƒ13:26:40.911 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Character name=child of #1#3
+ƒ13:26:40.946 [Test worker] DEBUG io.mockk.impl.instantiation.AbstractMockFactory - Creating mockk for Character name=child of #1#4
+š13:26:40.955 [Test worker] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering Character(#2) on CharacterServiceImpl(#1).getCharacterById(99)
+‡13:26:40.958 [Test worker] DEBUG io.mockk.impl.recording.states.AnsweringState - Answering true on Character(#2).equals(Character(#2))
